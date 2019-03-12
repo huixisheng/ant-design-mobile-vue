@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Flex from './flex';
+import Flex from '../components/flex';
 
 export default {
   components: {

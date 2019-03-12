@@ -4,6 +4,7 @@ module.exports = {
     'jsx',
     'json',
     'vue',
+    'md'
   ],
   transform: {
     '^.+\\.vue$': 'vue-jest',
@@ -15,6 +16,7 @@ module.exports = {
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^vue$': 'vue/dist/vue.common.js'
   },
   snapshotSerializers: [
     'jest-serializer-vue',
@@ -23,4 +25,5 @@ module.exports = {
     '**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)',
   ],
   testURL: 'http://localhost/',
+  setupFiles: ['./tests/setup.js']
 };
