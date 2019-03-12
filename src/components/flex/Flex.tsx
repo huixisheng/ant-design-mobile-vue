@@ -1,24 +1,30 @@
+// import classnames from 'classnames';
+// import React from 'react';
+// import { FlexPropsType as BasePropsType } from './PropsType';
+
+// export interface FlexProps extends BasePropsType {
+//   alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'stretch';
+//   onClick?: () => void;
+//   prefixCls?: string;
+//   className?: string;
+//   role?: string;
+//   style?: React.CSSProperties;
+// }
 import classnames from 'classnames';
-import React from 'react';
-import { FlexPropsType as BasePropsType } from './PropsType';
+import VueTypes from 'vue-types';
 
-export interface FlexProps extends BasePropsType {
-  alignContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'stretch';
-  onClick?: () => void;
-  prefixCls?: string;
-  className?: string;
-  role?: string;
-  style?: React.CSSProperties;
-}
 
-export default class Flex extends React.Component<FlexProps, any> {
-  static Item: any;
+const props = {
+  alignContent: VueTypes.oneOf(['start', 'end', 'center', 'between', 'around', 'stretch']),
+  prefixCls: VueTypes.string.def('am-flexbox'),
+  className: VueTypes.string,
+  role: VueTypes.string,
+  style: VueTypes.object
+};
 
-  static defaultProps = {
-    prefixCls: 'am-flexbox',
-    align: 'center',
-  };
-
+export default {
+  name: 'Flex',
+  props,
   render() {
     const {
       direction,
@@ -27,11 +33,11 @@ export default class Flex extends React.Component<FlexProps, any> {
       align,
       alignContent,
       className,
-      children,
       prefixCls,
       style,
+      $slots,
       ...restProps
-    } = this.props;
+    } = this;
 
     const wrapCls = classnames(prefixCls, className, {
       [`${prefixCls}-dir-row`]: direction === 'row',
@@ -62,11 +68,11 @@ export default class Flex extends React.Component<FlexProps, any> {
       [`${prefixCls}-align-content-around`]: alignContent === 'around',
       [`${prefixCls}-align-content-stretch`]: alignContent === 'stretch',
     });
-
+    // TODO: "style" is a reserved attribute and cannot be used as component prop. style={style}
     return (
-      <div className={wrapCls} style={style} {...restProps}>
-        {children}
+      <div class={wrapCls} {...restProps}>
+        {$slots.default}
       </div>
     );
   }
-}
+};
